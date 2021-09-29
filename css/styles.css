@@ -1,15 +1,3 @@
-/*
- *
- * CSS written based on SMACSS architecture.
- * To learn more, visit: http://smacss.com/
- *
- * For simplicity, no reset or normalize is added.
- * To learn more, visit: https://css-tricks.com/reboot-resets-reasoning/
- *
-*/
-
-
-/* ---- Base Rules ---- */
 body {
     background: rgb(136,203,171);
     background: linear-gradient(0deg, rgba(136,203,171,1) 0%, rgba(0,13,60,1) 100%);
@@ -86,6 +74,7 @@ section {
     background: #333;
     color: #fff;
     transition: ease 0.3s all;
+    cursor: pointer
 }
 
 /* Header Styles */
@@ -95,6 +84,7 @@ section {
     top: 0;
     width: 100%;
     z-index: 5;
+    transition: top 0.5s;
 }
 
 /* Footer Styles */
@@ -193,17 +183,33 @@ section:nth-of-type(3n + 1) .landing__container::after {
 /* ---- Theme State Rules ---- */
 /* Section Active Styles */
 /* Note: your-active-class class is applied through javascript. You should update the class here and in the index.html to what you set in your javascript file.  */
-section.your-active-class {
+section.actv {
     background: rgb(0, 0, 0);
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
 }
 
-section.your-active-class .landing__container::before {
+section.actv .landing__container::before {
     opacity: 1;
     animation: rotate 4s linear 0s infinite forwards;
 }
 
-section.your-active-class .landing__container::after {
+section.active .landing__container::after {
+    opacity: 1;
+    animation: rotate 5s linear 0s infinite forwards reverse;
+}
+
+.link__actv {
+    background: #333;
+    color: #fff !important;
+    transition: ease 0.3s all;
+}
+
+section.act .landing__container::before {
+    opacity: 1;
+    animation: rotate 4s linear 0s infinite forwards;
+}
+
+section.act .landing__container::after {
     opacity: 1;
     animation: rotate 5s linear 0s infinite forwards reverse;
 }
@@ -220,4 +226,23 @@ section.your-active-class .landing__container::after {
 		           translate(-1em)
 		           rotate(-360deg);
 	}
+}
+
+.scrollUp {
+    position: fixed;
+    z-index: 900;
+    bottom: 80px;
+    right: 10px;
+    width: 50px;
+    height: 50px;
+    background: rgba(0,13,60,0.7);
+    text-align: center;
+    line-height: 50px;
+    border-radius: 50%;
+    opacity: 0.8;
+    box-shadow: 0px 0px 5px 1px;
+    transition: opacity 0.3s;
+}
+.hide{
+  display: none;
 }
