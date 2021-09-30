@@ -1,3 +1,4 @@
+//main Function
 const build =
 {
     init: function ()
@@ -7,7 +8,7 @@ const build =
         this.scrollUp();
         this.ActiveState();
     },
-
+    //intialize Navigation bar
     initNav: () =>
     {
         const nav = document.querySelector('#navbarList'),
@@ -24,7 +25,7 @@ const build =
             frstLnk = false;
         }
     },
-
+//set section active if it is OnScreen
     ActiveState: () =>
     {
         const sections = document.getElementsByTagName('section');
@@ -32,35 +33,32 @@ const build =
         {
             sec.addEventListener('active', function ()
             {
-                const isOnScreen = build.OnScreen(this, -300);
+                const isOnScreen = build.OnScreen(this);
                 const navLnk = document.querySelectorAll(`[data-link="${this.dataset.nav}"]`)[0];
-                if (isOnScreen) {
+                if (isOnScreen)
+                {
                     this.classList.add('actv');
                     navLnk.classList.add('link__actv');
-                } else {
+                } else
+                {
                     this.classList.remove('actv');
                     navLnk.classList.remove('link__actv');
                 }
             })
         }
     },
-
-    OnScreen: (elm, bfr) =>
+//check if section is OnScreen
+    OnScreen: (elm) =>
     {
-        if(bfr === 'undefined')
-           bfr = 0;
-
         const boundng = elm.getBoundingClientRect();
-        if (boundng.top >= bfr && boundng.left >= bfr &&
-            boundng.right <=
-            ((document.documentElement.clientWidth) - bfr) &&
-            boundng.bottom <=
-            ((document.documentElement.clientHeight) - bfr))
-            return true;
-         else
-            return false;
-    },
+        //console.error(this.name);
+        if(boundng.top >= -350 && boundng.top <= 500)
+           return true;
+        else
+          return false;
 
+    },
+// hide & show scroll button
     ScrollHandlers: (bfr) =>
     {
         const nav = document.getElementsByClassName('page__header')[0];
@@ -79,13 +77,13 @@ const build =
 
             if (frstScrl)
             {
-                if (curPos - PrevPos >= 40)
+                if (curPos - PrevPos >= 50)
                 {
                     nav.style.top = '-55px';
                     PrevPos = curPos;
                     frstScrl = false;
                 }
-                else if (PrevPos - curPos >= 50)
+                else if (PrevPos - curPos >= 40)
                         PrevPos = curPos;
             } else
             {
@@ -93,7 +91,7 @@ const build =
                     PrevPos = curPos;
                 else
                 {
-                    if (PrevPos - curPos >= 50)
+                    if (PrevPos - curPos >= 40)
                     {
                         nav.style.top = '0';
                         frstScrl = true;
@@ -108,7 +106,7 @@ const build =
             });
         }
     },
-
+// scroll button function
     scrollUp: () =>
     {
         const button = document.getElementById('scrollUp');

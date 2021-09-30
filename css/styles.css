@@ -3,7 +3,7 @@ body {
     background: linear-gradient(0deg, rgba(136,203,171,1) 0%, rgba(0,13,60,1) 100%);
     margin: 0;
     font-family: 'Merriweather', serif;
-    color: #fff;
+    color: #c0ace1;
 }
 
 
@@ -12,6 +12,7 @@ h1 {
     font-family: 'Fira Sans', sans-serif;
     font-size: 3em;
     margin: 2em 1rem;
+
 }
 
 @media only screen and (min-width: 35em){
@@ -22,10 +23,10 @@ h1 {
 }
 
 h2 {
-    border-bottom: 1px solid #cc1;
+    border-bottom: 1px solid #ff0026;
     font-family: 'Oxygen', Sans-Serif;
     font-size: 3em;
-    color: #fff;
+    color: #000;
 }
 
 p {
