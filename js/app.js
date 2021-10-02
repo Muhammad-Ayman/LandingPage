@@ -4,8 +4,8 @@ const build =
     init: function ()
     {
         this.initNav();
-        this.ScrollHandlers(100);
         this.scrollUp();
+        this.ScrollHandlers(100);
         this.ActiveState();
     },
     //intialize Navigation bar
