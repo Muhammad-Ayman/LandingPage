@@ -146,7 +146,7 @@ const build =
             window.requestAnimationFrame(animScrlng);
         });
     },
-
+//navbar buttons function
     secButton: () =>
     {
       //const sections = document.getElementsByTagName('section');
@@ -156,6 +156,7 @@ const build =
         const button = document.getElementById(`${sec.dataset.nav}Button`);
         button.addEventListener('click', (event) =>
         {
+           event.preventDefault();
             const animScrlng = () =>
             {
                 sec.scrollIntoView({behavior: "smooth"});
