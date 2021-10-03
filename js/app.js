@@ -1,3 +1,5 @@
+const sections = document.getElementsByTagName('section');
+
 //main Function
 const build =
 {
@@ -5,11 +7,12 @@ const build =
     {
         this.initNav();
         this.scrollUp();
+        this.secButton();
         this.ScrollHandlers(100);
         this.ActiveState();
     },
     //intialize Navigation bar
-    initNav: () =>
+    /*initNav: () =>
     {
         const nav = document.querySelector('#navbarList'),
               sections = document.querySelectorAll('section');
@@ -24,11 +27,26 @@ const build =
             nav.appendChild(navLnk);
             frstLnk = false;
         }
+    },*/
+
+    initNav: () =>
+    {
+        const nav = document.querySelector('#navbarList'),
+              sections = document.querySelectorAll('section');
+        for(let sec of sections)
+        {
+          const navLnk = document.createElement('li');
+          navLnk.innerHTML =
+                            `<div class="menu__link" data-link= "${sec.dataset.nav}" id="${sec.dataset.nav}Button">
+                              ${sec.dataset.nav}
+                            </div>`
+          nav.appendChild(navLnk);
+        }
     },
 //set section active if it is OnScreen
     ActiveState: () =>
     {
-        const sections = document.getElementsByTagName('section');
+        //const sections = document.getElementsByTagName('section');
         for (let sec of sections)
         {
             sec.addEventListener('active', function ()
@@ -52,7 +70,7 @@ const build =
     {
         const boundng = elm.getBoundingClientRect();
         //console.error(this.name);
-        if(boundng.top <= 400 &&
+        if(boundng.top <= 430 &&
            boundng.left >= 0  &&
            boundng.bottom >= 150 &&
            boundng.right  <= (window.innerWidth || document.documentElement.clintWidth)
@@ -127,6 +145,24 @@ const build =
             }
             window.requestAnimationFrame(animScrlng);
         });
+    },
+
+    secButton: () =>
+    {
+      //const sections = document.getElementsByTagName('section');
+      for (let sec of sections)
+      {
+
+        const button = document.getElementById(`${sec.dataset.nav}Button`);
+        button.addEventListener('click', (event) =>
+        {
+            const animScrlng = () =>
+            {
+                sec.scrollIntoView({behavior: "smooth"});
+            }
+            window.requestAnimationFrame(animScrlng);
+        });
+      }
     }
 }
 
