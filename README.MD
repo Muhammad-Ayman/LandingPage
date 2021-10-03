@@ -1,5 +1,9 @@
-<!-- a Website that contain a navigation bar with all sections in the page.
-you can navigate to any section you want by clicking the its button.
+# Landing Page
+### A single web page that Contain dynamic Navigation bar based on the sections of the page in HTML file.
+### if we add a new sections, it well automatically appear in the navBar.
 
-the app.js scripts detects all sections automatically and adding them to Navigation Bar, control scrollUp button, set onScreen section to active and highlight its button in Navigation bar, and hide and show scrollUp button while scrolling.  
--->
+## Features
+- dynamic Navigation bar.
+- clicking item in navBar, page will scroll to the appropriate section.
+- It clear which section is being viewed while scrolling through the page.
+- Styling has been added for the active states.

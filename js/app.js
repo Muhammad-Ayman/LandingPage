@@ -52,7 +52,11 @@ const build =
     {
         const boundng = elm.getBoundingClientRect();
         //console.error(this.name);
-        if(boundng.top >= -350 && boundng.top <= 500)
+        if(boundng.top <= 400 &&
+           boundng.left >= 0  &&
+           boundng.bottom >= 150 &&
+           boundng.right  <= (window.innerWidth || document.documentElement.clintWidth)
+         )
            return true;
         else
           return false;
@@ -77,13 +81,13 @@ const build =
 
             if (frstScrl)
             {
-                if (curPos - PrevPos >= 50)
+                if (curPos - PrevPos >= 100)
                 {
                     nav.style.top = '-55px';
                     PrevPos = curPos;
                     frstScrl = false;
                 }
-                else if (PrevPos - curPos >= 40)
+                else if (PrevPos - curPos >= 30)
                         PrevPos = curPos;
             } else
             {
@@ -115,6 +119,7 @@ const build =
             const animScrlng = () =>
             {
                 const y = window.scrollY;
+
                 if (y > 0) {
                     window.requestAnimationFrame(animScrlng);
                     window.scrollTo(0, y - y / 8);
