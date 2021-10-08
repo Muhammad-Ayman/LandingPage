@@ -1,170 +1,118 @@
-const sections = document.getElementsByTagName('section');
-
-//main Function
-const build =
-{
-    init: function ()
-    {
-        this.initNav();
-        this.scrollUp();
-        this.secButton();
-        this.ScrollHandlers(100);
-        this.ActiveState();
-    },
-    //intialize Navigation bar
-    /*initNav: () =>
-    {
-        const nav = document.querySelector('#navbarList'),
-              sections = document.querySelectorAll('section');
-        let frstLnk = true;
-        for (let sec of sections)
-        {
-            const navLnk = document.createElement('li');
-            navLnk.innerHTML =
-                `<a href="#${sec.id}" class="menu__link ${frstLnk ? "link__active" : ""}" data-link="${sec.dataset.nav}">
-                    ${sec.dataset.nav}
-                </a>`
-            nav.appendChild(navLnk);
-            frstLnk = false;
-        }
-    },*/
-
-    initNav: () =>
-    {
-        const nav = document.querySelector('#navbarList'),
-              sections = document.querySelectorAll('section');
-        for(let sec of sections)
-        {
-          const navLnk = document.createElement('li');
-          navLnk.innerHTML =
-                            `<div class="menu__link" data-link= "${sec.dataset.nav}" id="${sec.dataset.nav}Button">
-                              ${sec.dataset.nav}
-                            </div>`
-          nav.appendChild(navLnk);
-        }
-    },
-//set section active if it is OnScreen
-    ActiveState: () =>
-    {
-        //const sections = document.getElementsByTagName('section');
-        for (let sec of sections)
-        {
-            sec.addEventListener('active', function ()
-            {
-                const isOnScreen = build.OnScreen(this);
-                const navLnk = document.querySelectorAll(`[data-link="${this.dataset.nav}"]`)[0];
-                if (isOnScreen)
-                {
-                    this.classList.add('actv');
-                    navLnk.classList.add('link__actv');
-                } else
-                {
-                    this.classList.remove('actv');
-                    navLnk.classList.remove('link__actv');
-                }
-            })
-        }
-    },
-//check if section is OnScreen
-    OnScreen: (elm) =>
-    {
-        const boundng = elm.getBoundingClientRect();
-        //console.error(this.name);
-        if(boundng.top <= 430 &&
-           boundng.left >= 0  &&
-           boundng.bottom >= 150 &&
-           boundng.right  <= (window.innerWidth || document.documentElement.clintWidth)
-         )
-           return true;
-        else
-          return false;
-
-    },
-// hide & show scroll button
-    ScrollHandlers: (bfr) =>
-    {
-        const nav = document.getElementsByClassName('page__header')[0];
-        let PrevPos = window.scrollY,
-            frstScrl = true;
-        const sections = document.getElementsByTagName('section'),
-              actvEvent = new Event('active');
-        window.onscroll = function ()
-        {
-            const curPos = window.scrollY,
-                  button = document.getElementById('scrollUp');
-            if (curPos > bfr)
-                button.classList.remove('hide');
-            else
-                button.classList.add('hide');
-
-            if (frstScrl)
-            {
-                if (curPos - PrevPos >= 100)
-                {
-                    nav.style.top = '-55px';
-                    PrevPos = curPos;
-                    frstScrl = false;
-                }
-                else if (PrevPos - curPos >= 30)
-                        PrevPos = curPos;
-            } else
-            {
-                if (PrevPos < curPos)
-                    PrevPos = curPos;
-                else
-                {
-                    if (PrevPos - curPos >= 40)
-                    {
-                        nav.style.top = '0';
-                        frstScrl = true;
-                        PrevPos = curPos;
-                    }
-                }
-            }
-            setTimeout(function () {
-                for (let sec of sections) {
-                    sec.dispatchEvent(actvEvent);
-                }
-            });
-        }
-    },
-// scroll button function
-    scrollUp: () =>
-    {
-        const button = document.getElementById('scrollUp');
-        button.addEventListener('click', (event) =>
-        {
-            const animScrlng = () =>
-            {
-                const y = window.scrollY;
-
-                if (y > 0) {
-                    window.requestAnimationFrame(animScrlng);
-                    window.scrollTo(0, y - y / 8);
-                }
-            }
-            window.requestAnimationFrame(animScrlng);
-        });
-    },
-//navbar buttons function
-    secButton: () =>
-    {
-      //const sections = document.getElementsByTagName('section');
-      for (let sec of sections)
-      {
-
-        const button = document.getElementById(`${sec.dataset.nav}Button`);
-        button.addEventListener('click', (event) =>
-        {
-           event.preventDefault();
-            const animScrlng = () =>
-            {
-                sec.scrollIntoView({behavior: "smooth"});
-            }
-            window.requestAnimationFrame(animScrlng);
-        });
-      }
-    }
+// get Elements from page
+const sections = document.getElementsByTagName("section"),
+	nav = document.querySelector("#navbarList"),
+	up = document.getElementById("scrollUp"),
+  head = document.getElementsByClassName('page__header')[0];
+let secbuts = null;
+//Initializing Navigation bar
+function initial() {
+	for (sec of sections) {
+		const button = document.createElement("li");
+		button.innerHTML = `<but class="menu__link" id="${sec.dataset.nav}Button">
+                        ${sec.dataset.nav}
+                        </but>`;
+		nav.appendChild(button);
+	}
 }
 
-build.init();
+//controll navbar buttons
+function buttons() {
+	for (let sec of sections) {
+		const button = document.getElementById(`${sec.dataset.nav}Button`);
+		button.addEventListener("click", (event) => {
+			event.preventDefault();
+			sec.scrollIntoView({
+				behavior: "smooth"
+			});
+		});
+	}
+}
+
+//Controll ScrollUp button & hide/Show Navigation bar
+function Scrolling()
+{
+  let FP =window.scrollY;
+  const act = new Event('active');
+	//Show & Hide ScrollUp Button
+	window.onscroll = function ()
+  {
+		let SP = window.scrollY;
+		if (SP < 188) up.classList.add("hide");
+		else up.classList.remove("hide");
+
+        if(SP - FP >= 200 )
+        {
+          head.style.top = `${nav.offsetHeight * -1}`;
+          FP = SP;
+        }else if (SP < FP)
+         {
+           head.style.top = '0px';
+           FP = SP
+        }
+
+        setTimeout(function () {
+                        for (let sec of sections) {
+                            sec.dispatchEvent(act);
+                        }
+                    });
+	},
+	//Scroll to the top of the page if the button clicked
+	up.addEventListener("click", (event) => {
+		let ny = window.scrollY;
+		const animScrlng = () => {
+			const y = window.scrollY;
+			if (ny - y >= 0) {
+				window.requestAnimationFrame(animScrlng);
+				window.scrollTo(0, y - y / 8);
+			}
+			ny = window.scrollY;
+		};
+		window.requestAnimationFrame(animScrlng);
+	});
+}
+
+//check if section is on screen
+function OnScreen(elm) {
+	const boundng = elm.getBoundingClientRect();
+	if (
+		boundng.top <= 430 &&
+		boundng.left >= 0 &&
+		boundng.bottom >= 200 &&
+		boundng.right <= (window.innerWidth || document.documentElement.clintWidth)
+	)
+		return true;
+	else return false;
+}
+
+//set current section active
+function view() {
+	for (let sec of sections) {
+    const but = document.getElementById(`${sec.dataset.nav}Button`)
+		window.addEventListener("scroll", function (event)
+    {
+			if (OnScreen(sec))
+      {
+         sec.classList.add("actv");
+         but.classList.add('link__actv');
+      }
+			else
+      {
+       sec.classList.remove("actv");
+       but.classList.remove('link__actv');
+      }
+		});
+
+	}
+}
+
+function scrollup()
+{
+
+}
+
+
+
+initial();
+buttons();
+Scrolling();
+view();
