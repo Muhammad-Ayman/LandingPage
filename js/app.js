@@ -2,8 +2,9 @@
 const sections = document.getElementsByTagName("section"),
 	nav = document.querySelector("#navbarList"),
 	up = document.getElementById("scrollUp"),
-  head = document.getElementsByClassName('page__header')[0];
-let secbuts = null;
+  head = document.getElementsByClassName('page__header')[0],
+  main = document.getElementsByTagName('main')[0];
+
 //Initializing Navigation bar
 function initial() {
 	for (sec of sections) {
@@ -59,15 +60,8 @@ function Scrolling()
 	//Scroll to the top of the page if the button clicked
 	up.addEventListener("click", (event) => {
 		let ny = window.scrollY;
-		const animScrlng = () => {
 			const y = window.scrollY;
-			if (ny - y >= 0) {
-				window.requestAnimationFrame(animScrlng);
-				window.scrollTo(0, y - y / 8);
-			}
-			ny = window.scrollY;
-		};
-		window.requestAnimationFrame(animScrlng);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
 	});
 }
 
